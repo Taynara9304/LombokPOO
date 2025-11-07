@@ -1,6 +1,7 @@
 package br.edu.ifpr.cars.api;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import br.edu.ifpr.cars.domain.Driver;
 import br.edu.ifpr.cars.domain.DriverRepository;
+import jakarta.validation.Valid;
 
 @Service
 @RestController //indica que é um controlador rest
@@ -39,7 +41,7 @@ public class DriverController {
     }
 
     @PostMapping("/drivers")
-    public Driver createDriver(@RequestBody Driver driver) {
+    public Driver createDriver(@RequestBody @Valid Driver driver) {
         return driverRepository.save(driver);
     }
 
@@ -48,6 +50,8 @@ public class DriverController {
         Driver foundDriver = findDrivers(id);
         foundDriver.setName(driver.getName());
         foundDriver.setBirthDate(driver.getBirthDate());
+        foundDriver.setEmail(driver.getEmail());
+        foundDriver.setCpf(driver.getCpf());
         return driverRepository.save(foundDriver);
     }
 
@@ -55,8 +59,10 @@ public class DriverController {
     public Driver incrementalUpdateDriver(@PathVariable("id") Long id, @RequestBody Driver driver) {
         Driver foundDriver = findDrivers(id);
 
-        foundDriver.setName(driver.getName());
-        foundDriver.setBirthDate(driver.getBirthDate());
+        foundDriver.setName(Optional.ofNullable(driver.getName()).orElse((foundDriver.getName())));
+        foundDriver.setBirthDate(Optional.ofNullable(driver.getBirthDate()).orElse((foundDriver.getBirthDate())));
+        foundDriver.setEmail(Optional.ofNullable(driver.getEmail()).orElse((foundDriver.getEmail())));
+        foundDriver.setCpf(Optional.ofNullable(driver.getCpf()).orElse((foundDriver.getCpf())));
 
         return driverRepository.save(foundDriver);
     }
