@@ -2,6 +2,10 @@ package br.edu.ifpr.cars.domain;
 
 import java.time.LocalDate;
 
+import br.edu.ifpr.cars.validate.AnoFabricacaoValido;
+import br.edu.ifpr.cars.validate.CNHValida;
+import br.edu.ifpr.cars.validate.PlacaValida;
+import br.edu.ifpr.cars.validate.SemPalavrasOfensivas;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -35,4 +39,12 @@ public class Driver {
         message = "O CPF deve estar no formato 000.000.000-00."
     )
     String cpf;
+    @PlacaValida
+    String placa;
+    @CNHValida
+    String cnh;
+    @AnoFabricacaoValido
+    int anoCarro;
+    @SemPalavrasOfensivas
+    String comentario;
 }
