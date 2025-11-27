@@ -1,4 +1,4 @@
-package br.edu.ifpr.cars.api;
+package br.edu.ifpr.cars.api.controller;
 
 import java.util.List;
 import java.util.Optional;

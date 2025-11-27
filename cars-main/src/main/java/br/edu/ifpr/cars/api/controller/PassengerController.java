@@ -1,4 +1,4 @@
-package br.edu.ifpr.cars.api;
+package br.edu.ifpr.cars.api.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -45,7 +45,7 @@ public class PassengerController {
         return passengerRepository.save(passenger);
     }
 
-    @PostMapping("/passenger{id}")
+    @PostMapping("/passenger/{id}")
     public Passenger fullUpdatePassenger(@PathVariable("id") Long id, @RequestBody Passenger passenger) {
         Passenger foundDriver = findPassenger(id);
         foundDriver.setName(passenger.getName());
@@ -53,7 +53,7 @@ public class PassengerController {
         return passengerRepository.save(foundDriver);
     }
 
-    @PatchMapping("/passenger{id}")
+    @PatchMapping("/passenger/{id}")
     public Passenger incrementalUpdateDriver(@PathVariable("id") Long id, @RequestBody Passenger passenger) {
         Passenger foundDriver = findPassenger(id);
 
