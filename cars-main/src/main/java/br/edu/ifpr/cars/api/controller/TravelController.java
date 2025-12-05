@@ -58,14 +58,13 @@ public class TravelController {
     @GetMapping("/{id}")
     public TravelRequest getTravel(@PathVariable Long id) {
         return travelRequestRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Travel não encontrada"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Viagem não encontrada"));
     }
 
     @PatchMapping("/{id}/accept/{driverId}")
-    @Transactional
     public ResponseEntity<TravelRequest> acceptTravel(@PathVariable Long id, @PathVariable Long driverId) {
         TravelRequest travel = travelRequestRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Travel não encontrada"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Viagem não encontrada"));
 
         if (travel.getStatus() == TravelStatus.ACCEPTED || travel.getStatus() == TravelStatus.FINISHED) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Viagem já aceita ou finalizada.");
@@ -85,10 +84,9 @@ public class TravelController {
     }
 
     @PatchMapping("/{id}/refuse/{driverId}")
-    @Transactional
     public ResponseEntity<TravelRequest> refuseTravel(@PathVariable Long id, @PathVariable Long driverId) {
         TravelRequest travel = travelRequestRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Travel não encontrada"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Viagem não encontrada"));
 
         if (travel.getStatus() != TravelStatus.CREATED) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
@@ -105,10 +103,9 @@ public class TravelController {
     }
 
     @PatchMapping("/{id}/finish/{driverId}")
-    @Transactional
     public ResponseEntity<TravelRequest> finishTravel(@PathVariable Long id, @PathVariable Long driverId) {
         TravelRequest travel = travelRequestRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Travel não encontrada"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Viagem não encontrada"));
 
         if (travel.getStatus() != TravelStatus.ACCEPTED) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,

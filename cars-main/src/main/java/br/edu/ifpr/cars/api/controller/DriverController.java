@@ -45,7 +45,7 @@ public class DriverController {
         return driverRepository.save(driver);
     }
 
-    @PostMapping("/drivers{id}")
+    @PostMapping("/drivers/{id}")
     public Driver fullUpdateDriver(@PathVariable("id") Long id, @RequestBody Driver driver) {
         Driver foundDriver = findDrivers(id);
         foundDriver.setName(driver.getName());
@@ -55,7 +55,7 @@ public class DriverController {
         return driverRepository.save(foundDriver);
     }
 
-    @PatchMapping("/drivers{id}")
+    @PatchMapping("/drivers/{id}")
     public Driver incrementalUpdateDriver(@PathVariable("id") Long id, @RequestBody Driver driver) {
         Driver foundDriver = findDrivers(id);
 
