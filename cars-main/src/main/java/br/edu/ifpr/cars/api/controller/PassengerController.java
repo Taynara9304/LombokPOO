@@ -47,10 +47,10 @@ public class PassengerController {
 
     @PostMapping("/passenger/{id}")
     public Passenger fullUpdatePassenger(@PathVariable("id") Long id, @RequestBody Passenger passenger) {
-        Passenger foundDriver = findPassenger(id);
-        foundDriver.setName(passenger.getName());
-        foundDriver.setEmail(passenger.getEmail());
-        return passengerRepository.save(foundDriver);
+        Passenger foundPassenger = findPassenger(id);
+        foundPassenger.setName(passenger.getName());
+        foundPassenger.setEmail(passenger.getEmail());
+        return passengerRepository.save(foundPassenger);
     }
 
     @PatchMapping("/passenger/{id}")
